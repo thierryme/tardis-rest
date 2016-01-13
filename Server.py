@@ -1,5 +1,5 @@
 #!/usr/bin/python2.7
-from flask import Flask,request
+from flask import Flask,request,jsonify
 
 app = Flask(__name__)
 
@@ -25,16 +25,17 @@ def f(channel_name=None):
 
 	    if channel_name == None:
 	        #print all channels
-	        for val in c.iteritems():
-	            return "{}".format(val)
+	        return jsonify(c)
+
 	    else:
-	        return "{}".format(c[channel_name])
+	        return jsonify({channel_name:c[channel_name]})
+
 	#si methode POST
 	else:
 		if not request.json:
 			abort(400)
 		c[channel_name] = request.json[channel_name]
-		return "{}".format(c)
+		return jsonify({channel_name:c[channel_name]}), 200
 
 #@app.route('/channels/<channel_name>',methods=['POST'])
 #def postDico(channel_name):
