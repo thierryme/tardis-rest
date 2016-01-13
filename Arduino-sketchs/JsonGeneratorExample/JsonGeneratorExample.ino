@@ -6,6 +6,7 @@
 
 #include <ArduinoJson.h>
 
+StaticJsonBuffer<200> jsonBuffer;
 JsonObject& root = jsonBuffer.createObject();
 
 void setup() {
@@ -13,8 +14,6 @@ void setup() {
   while (!Serial) {
     // wait serial port initialization
   }
-
-  StaticJsonBuffer<200> jsonBuffer;
 
   
   root["sensor"] = "gps";
