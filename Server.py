@@ -1,5 +1,10 @@
-#!/usr/bin/python2.7
-from flask import Flask,request,jsonify
+#!/usr/bin/python
+
+import serial
+import sys
+from threading import Thread
+
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -17,12 +22,13 @@ app = Flask(__name__)
 # def mesuredpos():
 #     pass
 
-c = {'obstacles':[2,3]}
+c = {'obstacles': [2, 3]}
+
+
 @app.route('/channels')
 @app.route('/channels/<channel_name>',methods=['GET','POST'])
 def f(channel_name=None):
 	if request.method == 'GET':
-
 	    if channel_name == None:
 	        #print all channels
 	        return jsonify(c)
@@ -37,9 +43,27 @@ def f(channel_name=None):
 		c[channel_name] = request.json[channel_name]
 		return jsonify({channel_name:c[channel_name]}), 200
 
-#@app.route('/channels/<channel_name>',methods=['POST'])
-#def postDico(channel_name):
 
+class SerialManager(Thread):
+    """Communication trough serial port"""
+    def __init__(self):
+        super(SerialManager, self).__init__()
+
+    def run(self):
+        ser = serial.Serial('/dev/ttyACM0', 9600)  # open serial port
+        print(ser.name)         # check which port was really used
+
+        while True:
+            line = ser.readline()
+            print(line)
+
+        ser.close()
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+
+    serialManager = SerialManager()
+
+    serialManager.run()
+    app.run(port=5000)
+
+    serialManager.join()
