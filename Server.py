@@ -85,9 +85,9 @@ class SerialManager(Thread):
 
 if __name__ == '__main__':
 
-    serialManager = SerialManager()
+    # serialManager = SerialManager()
 
-    serialManager.run()
+    # serialManager.run()
     app.run(port=5000, debug=True)
 
-    serialManager.join()
+    # serialManager.join()
