@@ -1,10 +1,11 @@
 #!/usr/bin/python
 
 import serial
-import sys
+import json
+
 from threading import Thread
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, abort
 
 app = Flask(__name__)
 
@@ -26,22 +27,22 @@ c = {'obstacles': [2, 3]}
 
 
 @app.route('/channels')
-@app.route('/channels/<channel_name>',methods=['GET','POST'])
+@app.route('/channels/<channel_name>', methods=['GET', 'POST'])
 def f(channel_name=None):
-	if request.method == 'GET':
-	    if channel_name == None:
-	        #print all channels
-	        return jsonify(c)
+    if request.method == 'GET':
+        if channel_name is None:
+            #print all channels
+            return jsonify(c)
 
-	    else:
-	        return jsonify({channel_name:c[channel_name]})
+        else:
+            return jsonify({channel_name: c[channel_name]})
 
-	#si methode POST
-	else:
-		if not request.json:
-			abort(400)
-		c[channel_name] = request.json[channel_name]
-		return jsonify({channel_name:c[channel_name]}), 200
+    #si methode POST
+    else:
+        if not request.json:
+            abort(400)
+        c[channel_name] = request.json[channel_name]
+        return jsonify({channel_name: c[channel_name]}), 200
 
 
 class SerialManager(Thread):
@@ -55,7 +56,11 @@ class SerialManager(Thread):
 
         while True:
             line = ser.readline()
-            print(line)
+            try:
+                data = json.loads(line)
+                print(data)
+            except ValueError:
+                print("Non-valid")
 
         ser.close()
 
