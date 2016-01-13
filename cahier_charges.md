@@ -63,4 +63,4 @@
 ### Post
 | Routes                        | Descrition                                        |
 |---                            |---                                                |
-| /channels/channel_name/val    | Ecrit la valeur val sur le canal correspondant    |
+| /channels/channel_name    | Ecrit la valeur val sur le canal correspondant    |

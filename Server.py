@@ -1,6 +1,6 @@
 #!/usr/bin/python2.7
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
@@ -25,14 +25,27 @@ def client():
     return render_template('client.html')
 
 @app.route('/channels')
-@app.route('/channels/<channel_name>',methods=['GET'])
+@app.route('/channels/<channel_name>',methods=['GET','POST'])
 def f(channel_name=None):
-    if channel_name == None:
-        #print all channels
-        for val in c.iteritems():
-            return "{}".format(val)
-    else:
-        return "{}".format(c[channel_name])
+	if request.method == 'GET':
+
+	    if channel_name == None:
+	        #print all channels
+	        return jsonify(c)
+
+	    else:
+	        return jsonify({channel_name:c[channel_name]})
+
+	#si methode POST
+	else:
+		if not request.json:
+			abort(400)
+		c[channel_name] = request.json[channel_name]
+		return jsonify({channel_name:c[channel_name]}), 200
+
+#@app.route('/channels/<channel_name>',methods=['POST'])
+#def postDico(channel_name):
+
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
