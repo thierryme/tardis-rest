@@ -1,5 +1,6 @@
 #!/usr/bin/python2.7
-from flask import Flask
+
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -18,6 +19,11 @@ app = Flask(__name__)
 #     pass
 
 c = {'obstacles':[2,3]}
+
+@app.route('/')
+def client():
+    return render_template('client.html')
+
 @app.route('/channels')
 @app.route('/channels/<channel_name>',methods=['GET'])
 def f(channel_name=None):
