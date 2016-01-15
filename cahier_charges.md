@@ -31,7 +31,7 @@
 ## Data sensors channels (JSON)
 
     {
-        "obstacles":[Vx,Vy]
+        "avoid_direction":[Vx,Vy]
     }
 
     {
@@ -41,6 +41,20 @@
     {
         "mesured_pos":[x,y,teta]
     }
+
+    {
+        "ultrasonic":[u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11]
+    }
+
+    {
+        "start_timer":t
+    }
+
+    {
+        "spot_enable":boolean
+    }
+
+    
 
 ## Data script
     
