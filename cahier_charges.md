@@ -31,16 +31,30 @@
 ## Data sensors channels (JSON)
 
     {
-        "obstacles":Vx,Vy
+        "avoid_direction":[Vx,Vy]
     }
 
     {
-        "new_pos":x,y,teta
+        "new_pos":[x,y,teta]
     }
 
     {
-        "mesured_pos":x,y,teta
+        "mesured_pos":[x,y,teta]
     }
+
+    {
+        "ultrasonic":[u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11]
+    }
+
+    {
+        "start_timer":t
+    }
+
+    {
+        "spot_enable":boolean
+    }
+
+    
 
 ## Data script
     
@@ -57,10 +71,10 @@
 
 | Routes                        | Descrition                                                                            |
 |---                            |---                                                                                    |
-| /channels                     |  Retourne la liste des canaux avec la dernière valeur écrite dedans en format JSON    |
+| /channels                     | Retourne la liste des canaux avec la dernière valeur écrite dedans en format JSON     |
 | /channels/channel_name        | Retourne la valeur correspondante au nom du canal                                     |
 
 ### Post
 | Routes                        | Descrition                                        |
 |---                            |---                                                |
-| /channels/channel_name    | Ecrit la valeur val sur le canal correspondant    |
+| /channels/channel_name        | Ecrit la valeur val sur le canal correspondant    |

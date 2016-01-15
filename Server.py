@@ -1,5 +1,12 @@
-#!/usr/bin/python2.7
-from flask import Flask,request,jsonify
+#!/usr/bin/python
+
+import serial
+import json
+import time
+
+from threading import Thread
+
+from flask import Flask, request, jsonify, abort, render_template
 
 app = Flask(__name__)
 
@@ -17,29 +24,68 @@ app = Flask(__name__)
 # def mesuredpos():
 #     pass
 
-c = {'avoid_direction':[2,3]}
+c = {'avoid_direction': [2, 3]}
+
+
+@app.route('/')
+def client():
+    return render_template('client.html')
+
+
 @app.route('/channels')
-@app.route('/channels/<channel_name>',methods=['GET','POST'])
+@app.route('/channels/<channel_name>', methods=['GET', 'POST'])
 def f(channel_name=None):
-	if request.method == 'GET':
+    if request.method == 'GET':
+        if channel_name is None:
+            #print all channels
+            return jsonify(c)
 
-	    if channel_name == None:
-	        #print all channels
-	        return jsonify(c)
+        else:
+            return jsonify({channel_name: c[channel_name]})
 
-	    else:
-	        return jsonify({channel_name:c[channel_name]})
+    #si methode POST
+    else:
+        if not request.json:
+            abort(400)
+        c[channel_name] = request.json[channel_name]
+        return jsonify({channel_name: c[channel_name]}), 200
 
-	#si methode POST
-	else:
-		if not request.json:
-			abort(400)
-		c[channel_name] = request.json[channel_name]
-		return jsonify({channel_name:c[channel_name]}), 200
 
-#@app.route('/channels/<channel_name>',methods=['POST'])
-#def postDico(channel_name):
+class SerialManager(Thread):
+    """Communication trough serial port"""
+    def __init__(self):
+        super(SerialManager, self).__init__()
+
+    def run(self):
+        ser_connected = "No serial"
+
+        while True:
+            try:
+                ser = serial.Serial('/dev/ttyUSB00_Arduino_pJaune', 9600)  # open serial port
+                ser_connected = ser.name
+                print("{} connected".format(ser_connected))         # check which port was really used
+
+                try:
+                    while True:
+
+                            line = ser.readline()
+                            try:
+                                data = json.loads(line)
+                                print(data)
+                            except ValueError:
+                                print("Non-valid")
+                finally:
+                        ser.close()
+                        print("{} disconnected".format(ser_connected))
+
+            except serial.serialutil.SerialException:
+
+                time.sleep(3)
 
 
 if __name__ == '__main__':
+
+    # serialManager = SerialManager()
+
+    # serialManager.run()
     app.run(port=5000, debug=True)
