@@ -17,7 +17,7 @@ app = Flask(__name__)
 # def mesuredpos():
 #     pass
 
-c = {'obstacles':[2,3]}
+c = {'avoid_direction':[2,3]}
 @app.route('/channels')
 @app.route('/channels/<channel_name>',methods=['GET','POST'])
 def f(channel_name=None):
