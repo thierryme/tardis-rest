@@ -141,7 +141,7 @@ var channels = {
     },
 
     spot_enable : {
-        name : 'Début chronomètre',
+        name : 'Spot Enable',
         valuesForm :'<label>Activé </label>' +
                     '<input type="checkbox" name="spot">',
         valuesToObject : function(valuesContainer) {
