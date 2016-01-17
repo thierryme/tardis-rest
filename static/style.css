@@ -6,3 +6,12 @@ body {
 .navbar {
     margin-bottom: 20px;
 }
+
+#channelTable label {
+    width: 100px;
+}
+
+#channelTable input[type="text"] {
+    width: 70px;
+    text-align: right;
+}
