@@ -30,26 +30,42 @@
 
 ## Data sensors channels (JSON)
 
-    {
-        "obstacles":[Vx,Vy]
-    }
+### External publisher
 
     {
-        "new_pos":[x,y,teta]
+        "obstacles":[Vx,Vy]
     }
 
     {
         "mesured_pos":[x,y,teta]
     }
 
-## Data script
-    
     {
-        "1":{{"channel_to_write":val},{"channel_to_read",condition_val}},
-        "2":{{"channel_to_write":val},{"channel_to_read",condition_val}},
-        "3":{{"channel_to_write":val},{"channel_to_read",condition_val}},
-        "4":{{"channel_to_write":val},{"channel_to_read",condition_val}}
+        "nb_spots":n
     }
+
+### External subscriber
+
+    {
+        "new_pos":[x,y,teta]
+    }
+
+    {
+        "spot_inhib_vision":0-2
+    }
+
+    {
+        "spot_door":0-12
+    }
+
+    {
+        "spot_shaft":0-255
+    }
+
+    {
+        "team_color":"j"|"v"
+    }
+
 
 ## API routes
 
