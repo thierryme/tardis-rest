@@ -45,7 +45,9 @@ var sendPOST = function(channel, values) {
     $.ajax({
         type : 'POST',
         url : requestURL,
+        dataType : 'json',
         data : JSON.stringify(values),
+        contentType: "application/json; charset=utf-8",
         error : showError
     });
 };
