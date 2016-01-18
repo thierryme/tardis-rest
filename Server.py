@@ -61,7 +61,7 @@ class SerialManager(Thread):
 
         while True:
             try:
-                ser = serial.Serial('/dev/ttyUSB00_Arduino_pJaune', 9600)  # open serial port
+                ser = serial.Serial('/dev/ttyUSB1', 115200)  # open serial port
                 ser_connected = ser.name
                 print("{} connected".format(ser_connected))         # check which port was really used
 
@@ -74,6 +74,11 @@ class SerialManager(Thread):
                                 print(data)
                             except ValueError:
                                 print("Non-valid")
+
+                            data_to_send = {}
+                            data_to_send['new_pos'] = [200, 200, 0]
+
+                            ser.write(json.dumps(data_to_send)+'\n')
                 finally:
                         ser.close()
                         print("{} disconnected".format(ser_connected))
@@ -88,6 +93,6 @@ if __name__ == '__main__':
     serialManager = SerialManager()
 
     serialManager.run()
-    app.run(port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
 
     serialManager.join()
