@@ -41,7 +41,7 @@ Get the first line without a ':'. If for exemple you have "1-1.2.4"  then edit/c
 
     SUBSYSTEM=="tty", KERNEL=="ttyACM*", KERNELS=="1-1.2.4", SYMLINK+="ttyACM0001"
 
-Where 'ttyUSB00_Arduino_HUB1' is a tty name wich will refer to the port you pluged your Arduino in. Change this name to fit to your need.
+Where 'ttyACM0001' is a tty name wich will refer to the port you pluged your Arduino in. Change this name to fit to your need.
 Now the Arduino serial port should be accessible trough '/dev/ttyACM0001'.
 Repeat this operation for each port and give an appropriate tty name (...0002).
 (see: http://hintshop.ludvig.co.nz/show/persistent-names-usb-serial-devices/ or https://wiki.archlinux.org/index.php/arduino)
