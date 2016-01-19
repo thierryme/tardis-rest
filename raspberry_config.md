@@ -1,7 +1,7 @@
-= Raspberry Pi Configuration =
+# Raspberry Pi Configuration
 This is the configuration used for the hosting raspberry pi
 
-== Network Interface ==
+## Network Interface
 In /etc/network/intefaces
 No changes to the loopback interface
 > auto lo
@@ -13,17 +13,17 @@ Configure a static ip on eth0
 > gateway 192.168.0.1
 > dns-nameserver 8.8.8.8
 
-== Retrive project sources ==
+## Retrive project sources
 > mkdir ~/Prog
 > cd ~/Prog
 > git clone https://github.com/thierryme
 
-== Install python dependencys ==
+## Install python dependencys
 > sudo apt-get install && sudo apt-get update
 > sudo apt-get install python-pip
 > sudo pip install -r ~/Prog/tardis-rest/requirements.txt
 
-== Consistent naming of Arduino tty ==
+## Consistent naming of Arduino tty
 In order to have the same tty name at each reboot of the raspberry pi for each Arduino card, a special Udev rule is created.
 
 First plug an Arduino card into an USB port.
@@ -39,5 +39,5 @@ Now the Arduino serial port should be accessible trough '/dev/ttyUSB00_Arduino_H
 Repeat this operation for each port and give an appropriate tty name (...0002).
 (see: http://hintshop.ludvig.co.nz/show/persistent-names-usb-serial-devices/ or https://wiki.archlinux.org/index.php/arduino)
 
-== Arduino dependencys ==
+## Arduino dependencys
 Install the ArduinoJson library
