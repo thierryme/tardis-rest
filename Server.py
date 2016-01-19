@@ -83,11 +83,9 @@ class SerialManager(Thread):
                         try:
                             data = json.loads(line)
 
-                            for key, item in data.items:
+                            for key, item in data.items():
                                 with mutex:
                                     channels[key] = item
-
-                                print(channels[key])
 
                         except ValueError:
                             print("Non-valid")
@@ -104,7 +102,7 @@ class SerialManager(Thread):
                     print("{} disconnected".format(ser_connected))
             except serial.serialutil.SerialException:
                 time.sleep(3)
-                print "dans le thread"
+                print("try reconnect")
 
 
 if __name__ == '__main__':
