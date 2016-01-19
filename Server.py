@@ -129,6 +129,6 @@ if __name__ == '__main__':
     commDisplacingModule.start()
     #comm2 = SerialManager('/dev/ttyUSB1', 115200, write_c=['new_pos'], read_c=['mesured_pos'])
     #comm2.start()
-    commUltrasonic = SerialManager('/dev/ttyACM0004', 115200, read_c=['ultrasonic', 'avoid_direction'], debug=True)
+    commUltrasonic = SerialManager('/dev/ttyACM0004', 115200, read_c=['ultrasonic', 'avoid_direction'])
     commUltrasonic.start()
     app.run(host='0.0.0.0', port=5000, debug=True)
