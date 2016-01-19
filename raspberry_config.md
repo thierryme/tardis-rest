@@ -3,10 +3,11 @@ This is the configuration used for the hosting raspberry pi
 
 ## Network Interface
 In /etc/network/intefaces
-No changes to the loopback interface
+
+- No changes to the loopback interface
 > auto lo
 > iface lo inet loopback
-Configure a static ip on eth0
+- Configure a static ip on eth0
 > iface eth0 inet static
 > address 192.168.0.5
 > netmask 255.255.255.0
