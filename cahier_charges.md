@@ -38,7 +38,7 @@ Canaux sur lesquels les différents capteurs du robot publient leurs mesures.
     }
     
     {
-        "ultrasonic":[u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11]
+        "ultrasonic":[u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11]
     }
 
     {
@@ -72,5 +72,5 @@ Les différentes routes suivantes nous permet d'accèder à nos canaux et permet
 | /channels/channel_name        | Indique sur quel canal on change la valeur    |
 
 #### Contenu de la requète POST
-Les données de la requète HTTP POST contient une valeur en JSON comme suit:
+Les données de la requète HTTP POST contiennent une valeur en JSON comme suit:
 {"nom_canal": valeur}
