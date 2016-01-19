@@ -80,6 +80,6 @@ Les différentes routes suivantes nous permet d'accèder à nos canaux et permet
 | Routes                        |Descrition |
 |---                            |---                              |
 | /channels/channel_name        | Indique sur quel canal on change la valeur    |
-## Contenu de la requète POST
+#### Contenu de la requète POST
 Le champ de la requète HTTP POST contient une valeur en JSON comme suit:
 {"nom_canal": valeur}
