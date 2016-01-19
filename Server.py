@@ -3,6 +3,7 @@
 import serial
 import json
 import time
+import traceback
 
 from threading import Thread, Lock
 
@@ -36,6 +37,9 @@ def client():
 @app.route('/channels')
 @app.route('/channels/<channel_name>', methods=['GET', 'POST'])
 def f(channel_name=None):
+    """
+
+    """
     if request.method == 'GET':
         if channel_name is None:
             #print all channels
@@ -57,11 +61,15 @@ def f(channel_name=None):
 
 class SerialManager(Thread):
     """Communication trough serial port"""
-    def __init__(self, serial='/dev/ttyUSB1'):
+    def __init__(self, serial='/dev/ttyUSB1', baud=115200, write_c=[], read_c=[]):
         Thread.__init__(self)
 
         self.serial_name = serial
+        self.baud = baud
+        self.channels_to_write = write_c
+        self.channels_to_read = read_c
         self.setDaemon(True)  # pour killer le thread avec ctrl + C
+        print('I')
 
     def run(self):
         ser_connected = "No serial"
@@ -72,20 +80,24 @@ class SerialManager(Thread):
             #dat = channels['new_pos']
             #print dat
             try:
-                ser = serial.Serial(self.serial_name, 115200)  # open serial port
+                ser = serial.Serial(self.serial_name, self.baud)  # open serial port
                 ser_connected = ser.name
                 print("{} connected".format(ser_connected))         # check which port was really used
-
+                print('C')
                 try:
                     while True:
+                        print('R')
+                        line = ser.readline().decode('ascii')
+                        print(line)
 
-                        line = ser.readline()
                         try:
                             data = json.loads(line)
-
-                            for key, item in data.items():
-                                with mutex:
-                                    channels[key] = item
+                            if isinstance(data, dict):
+                                for key in self.channels_to_read:
+                                    if key in data:
+                                        with mutex:
+                                            channels[key] = data[key]
+                            print("OK")
 
                         except ValueError:
                             print("Non-valid")
@@ -93,20 +105,29 @@ class SerialManager(Thread):
                         data_to_send = {}
                         #data_to_send['new_pos'] = [200, 200, 0]
 
-                        with mutex:
-                            data_to_send['new_pos'] = channels['new_pos']
+                        for channel in self.channels_to_write:
+                            with mutex:
+                                data_to_send[channel] = channels[channel]
 
-                        ser.write(json.dumps(data_to_send)+'\n')
+                        print('W')
+                        if data_to_send != {}:
+                            ser.write(json.dumps(data_to_send).encode('ascii')+'\n')
+
                 finally:
                     ser.close()
                     print("{} disconnected".format(ser_connected))
             except serial.serialutil.SerialException:
-                time.sleep(3)
+                #traceback.print_exc()
+                time.sleep(1)
                 print("try reconnect")
 
 
 if __name__ == '__main__':
 
-    serialManager = SerialManager('/dev/ttyACM0006')
-    serialManager.start()
+    commDisplacingModule = SerialManager('/dev/ttyACM0006', 115200, write_c=['new_pos'], read_c=['mesured_pos'])
+    #commDisplacingModule.start()
+    #comm2 = SerialManager('/dev/ttyUSB1', 115200, write_c=['new_pos'], read_c=['mesured_pos'])
+    #comm2.start()
+    commUltrasonic = SerialManager('/dev/ttyACM0004', 115200, read_c=['ultrasonic', 'avoid_direction'])
+    commUltrasonic.start()
     app.run(host='0.0.0.0', port=5000, debug=True)
