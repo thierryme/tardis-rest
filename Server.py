@@ -61,7 +61,7 @@ def f(channel_name=None):
 
 class SerialManager(Thread):
     """Communication trough serial port"""
-    def __init__(self, serial='/dev/ttyUSB1', baud=115200, write_c=[], read_c=[]):
+    def __init__(self, serial='/dev/ttyUSB1', baud=115200, write_c=[], read_c=[], debug=False):
         Thread.__init__(self)
 
         self.serial_name = serial
@@ -69,6 +69,7 @@ class SerialManager(Thread):
         self.channels_to_write = write_c
         self.channels_to_read = read_c
         self.setDaemon(True)  # pour killer le thread avec ctrl + C
+        self.debug = debug
         print('I')
 
     def run(self):
@@ -83,12 +84,13 @@ class SerialManager(Thread):
                 ser = serial.Serial(self.serial_name, self.baud)  # open serial port
                 ser_connected = ser.name
                 print("{} connected".format(ser_connected))         # check which port was really used
-                print('C')
+                #print('C')
                 try:
                     while True:
-                        print('R')
+                        #print('R')
                         line = ser.readline().decode('ascii')
-                        print(line)
+                        if self.debug:
+                            print(line)
 
                         try:
                             data = json.loads(line)
@@ -97,7 +99,6 @@ class SerialManager(Thread):
                                     if key in data:
                                         with mutex:
                                             channels[key] = data[key]
-                            print("OK")
 
                         except ValueError:
                             print("Non-valid")
@@ -109,7 +110,7 @@ class SerialManager(Thread):
                             with mutex:
                                 data_to_send[channel] = channels[channel]
 
-                        print('W')
+                        #print('W')
                         if data_to_send != {}:
                             ser.write(json.dumps(data_to_send).encode('ascii')+'\n')
 
@@ -128,6 +129,6 @@ if __name__ == '__main__':
     #commDisplacingModule.start()
     #comm2 = SerialManager('/dev/ttyUSB1', 115200, write_c=['new_pos'], read_c=['mesured_pos'])
     #comm2.start()
-    commUltrasonic = SerialManager('/dev/ttyACM0004', 115200, read_c=['ultrasonic', 'avoid_direction'])
+    commUltrasonic = SerialManager('/dev/ttyACM0004', 115200, read_c=['ultrasonic', 'avoid_direction'], debug=True)
     commUltrasonic.start()
     app.run(host='0.0.0.0', port=5000, debug=True)
