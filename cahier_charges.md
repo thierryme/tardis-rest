@@ -30,40 +30,30 @@
 
 ## Data sensors channels (JSON)
 
+### External publisher
+
     {
         "avoid_direction":[Vx,Vy]
     }
+    
+    {
+        "ultrasonic":[u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11]
+    }
 
     {
-        "new_pos":[x,y,teta]
+        "obstacles":[Vx,Vy]
     }
 
     {
         "mesured_pos":[x,y,teta]
     }
 
-    {
-        "ultrasonic":[u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11]
-    }
+### External subscriber
 
     {
-        "start_timer":t
+        "new_pos":[x,y,teta]
     }
-
-    {
-        "spot_enable":boolean
-    }
-
     
-
-## Data script
-    
-    {
-        "1":{{"channel_to_write":val},{"channel_to_read",condition_val}},
-        "2":{{"channel_to_write":val},{"channel_to_read",condition_val}},
-        "3":{{"channel_to_write":val},{"channel_to_read",condition_val}},
-        "4":{{"channel_to_write":val},{"channel_to_read",condition_val}}
-    }
 
 ## API routes
 
