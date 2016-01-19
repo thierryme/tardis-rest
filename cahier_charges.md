@@ -68,7 +68,7 @@
 
 
 ## API routes
-
+Les différentes routes suivantes nous permet d'accèder à nos canaux et permet de changer les valeurs qui y sont ou de monitorer les valeurs.
 ### Get
 
 | Routes                        | Descrition                                                                            |
@@ -77,6 +77,9 @@
 | /channels/channel_name        | Retourne la valeur correspondante au nom du canal                                     |
 
 ### Post
-| Routes                        | Descrition                                        |
-|---                            |---                                                |
-| /channels/channel_name        | Ecrit la valeur val sur le canal correspondant    |
+| Routes                        |Descrition |
+|---                            |---                              |
+| /channels/channel_name        | Indique sur quel canal on change la valeur    |
+## Contenu de la requète POST
+Le champ de la requète HTTP POST contient une valeur en JSON comme suit:
+{"nom_canal": valeur}
