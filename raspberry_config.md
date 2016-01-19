@@ -24,7 +24,9 @@ Configure a static ip on eth0
 
 ## Install python dependencys
 > sudo apt-get install && sudo apt-get update
+
 > sudo apt-get install python-pip
+
 > sudo pip install -r ~/Prog/tardis-rest/requirements.txt
 
 ## Consistent naming of Arduino tty
@@ -33,6 +35,7 @@ In order to have the same tty name at each reboot of the raspberry pi for each A
 First plug an Arduino card into an USB port.
 Then retrive the KERNELS informaton with the following command:
 > udevadm info -a -n /dev/ttyACM0 | grep KERNELS
+
 Get the first line without a ':'. If for exemple you have "1-1.2.4"  then edit/create the following file accordingly:
 > sudo vim /etc/udev/rules.d/99-arduino.rules
 
