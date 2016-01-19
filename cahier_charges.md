@@ -30,12 +30,10 @@
 
 ## Data sensors channels (JSON)
 
-    {
-        "avoid_direction":[Vx,Vy]
-    }
+### External publisher
 
     {
-        "new_pos":[x,y,teta]
+        "avoid_direction":[Vx,Vy]
     }
 
     {
@@ -47,22 +45,25 @@
     }
 
     {
+        "nb_spots":n
+    }
+
+    {
         "start_timer":t
     }
 
+### External subscriber
+
     {
-        "spot_enable":boolean
+        "new_pos":[x,y,teta]
     }
 
-    
-
-## Data script
-    
     {
-        "1":{{"channel_to_write":val},{"channel_to_read",condition_val}},
-        "2":{{"channel_to_write":val},{"channel_to_read",condition_val}},
-        "3":{{"channel_to_write":val},{"channel_to_read",condition_val}},
-        "4":{{"channel_to_write":val},{"channel_to_read",condition_val}}
+        "spot_inhib_vision":0-2
+    }
+ 
+    {
+        "spot_door":0-12
     }
 
 ## API routes
