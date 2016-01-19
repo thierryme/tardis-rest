@@ -2,17 +2,20 @@
 This is the configuration used for the hosting raspberry pi
 
 ## Network Interface
-In /etc/network/intefaces
+In /etc/network/intefaces:
 
-- No changes to the loopback interface
-> auto lo
-> iface lo inet loopback
-- Configure a static ip on eth0
-> iface eth0 inet static
-> address 192.168.0.5
-> netmask 255.255.255.0
-> gateway 192.168.0.1
-> dns-nameserver 8.8.8.8
+No changes to the loopback interface
+
+    auto lo
+    iface lo inet loopback
+
+Configure a static ip on eth0
+
+    iface eth0 inet static
+    address 192.168.0.5
+    netmask 255.255.255.0
+    gateway 192.168.0.1
+    dns-nameserver 8.8.8.8
 
 ## Retrive project sources
 > mkdir ~/Prog
@@ -33,7 +36,7 @@ Then retrive the KERNELS informaton with the following command:
 Get the first line without a ':'. If for exemple you have "1-1.2.4"  then edit/create the following file accordingly:
 > sudo vim /etc/udev/rules.d/99-arduino.rules
 
->> SUBSYSTEM=="tty", KERNEL=="ttyACM*", KERNELS=="1-1.2.4", SYMLINK+="ttyACM0001"
+    SUBSYSTEM=="tty", KERNEL=="ttyACM*", KERNELS=="1-1.2.4", SYMLINK+="ttyACM0001"
 
 Where 'ttyUSB00_Arduino_HUB1' is a tty name wich will refer to the port you pluged your Arduino in. Change this name to fit to your need.
 Now the Arduino serial port should be accessible trough '/dev/ttyACM0001'.
