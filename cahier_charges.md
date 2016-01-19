@@ -31,6 +31,7 @@
 ## Data sensors channels (JSON)
 
 ### External publisher
+Canaux sur lesquels les différents capteurs du robot publient leurs mesures.
 
     {
         "avoid_direction":[Vx,Vy]
@@ -49,6 +50,7 @@
     }
 
 ### External subscriber
+Canaux permetant de donner des consignes aux péripheriques du robot.
 
     {
         "new_pos":[x,y,teta]
