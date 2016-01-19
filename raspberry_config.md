@@ -47,4 +47,7 @@ Repeat this operation for each port and give an appropriate tty name (...0002).
 (see: http://hintshop.ludvig.co.nz/show/persistent-names-usb-serial-devices/ or https://wiki.archlinux.org/index.php/arduino)
 
 ## Arduino dependencys
-Install the ArduinoJson library
+- ArduinoJson
+- Mecanum4WD
+- Sonicsense
+- Spots
