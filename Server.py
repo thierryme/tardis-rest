@@ -57,8 +57,8 @@ def f(channel_name=None):
 
 class SerialManager(Thread):
     """Communication trough serial port"""
-    def __init__(self):
-        Thread.__init__(self, serial='/dev/ttyUSB1')
+    def __init__(self, serial='/dev/ttyUSB1'):
+        Thread.__init__(self)
 
         self.serial_name = serial
         self.setDaemon(True)  # pour killer le thread avec ctrl + C
