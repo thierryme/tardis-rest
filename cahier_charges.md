@@ -1,4 +1,3 @@
-# Cahier des charges
 ## Projet de serveur REST pour le robot Tardis
 
 ### Schéma de principe
