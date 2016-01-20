@@ -112,9 +112,6 @@ class SerialManager(Thread):
                 time.sleep(1)
                 print("try reconnect")
 
-    serialManager.run()
-    app.run(port=5000, debug=True)
-
 if __name__ == '__main__':
 
     commDisplacingModule = SerialManager('/dev/ttyACM0006', 115200, write_c=['new_pos'], read_c=['mesured_pos'])
