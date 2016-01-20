@@ -73,7 +73,7 @@ Les données de la requète HTTP POST contiennent une valeur en JSON comme suit:
 {"nom_canal": valeur}
 
 
-= Raspberry Pi Configuration =
+##Raspberry Pi Configuration =
 This is the configuration used for the hosting raspberry pi
 
 == Network Interface ==
