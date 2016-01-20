@@ -1,7 +1,7 @@
 ## Projet de serveur REST pour le robot Tardis
 
 ### Schéma de principe
-![alt text](https://bytebucket.org/gostmasterys/web-tardis/raw/de2e72dd163250635503c681693c18de7ed9c585/Basic_block_diagram.png "block diagram")
+![alt text](./Basic_block_diagram.png "block diagram")
 
 ### Client Web
 #### Interface pour:
