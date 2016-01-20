@@ -14,4 +14,5 @@ body {
 #channelTable input[type="text"] {
     width: 70px;
     text-align: right;
+    background-color: #FFFFF;
 }
