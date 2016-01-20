@@ -24,7 +24,7 @@ app = Flask(__name__)
 # def mesuredpos():
 #     pass
 
-channels = {'obstacles': [0, 0], 'new_pos': [0, 0, 0], 'mesured_pos': [0, 0, 0], 'nb_spots': 0}
+channels = {'avoid_direction' : [0, 0], 'new_pos': [0, 0, 0], 'mesured_pos': [0, 0, 0], 'ultrasonic': [0,0,0,0,0,0,0,0,0,0,0,0]}
 mutex = Lock()
 
 

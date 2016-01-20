@@ -54,7 +54,6 @@ var sendPOST = function(channel, values) {
 
 // Collection of channels handled by the application
 var channels = {
-
     avoid_direction : {
         name : 'Vecteur d\'évitement',
         valuesForm :'<label>x : </label>' +
@@ -65,8 +64,8 @@ var channels = {
         valuesToObject : function(valuesContainer) {
             return {
                 avoid_direction : [
-                    parseFloat(valuesContainer.find('input[name="x"]').val()) || 0,
-                    parseFloat(valuesContainer.find('input[name="y"]').val()) || 0
+                    parseInt(valuesContainer.find('input[name="x"]').val()) || 0,
+                    parseInt(valuesContainer.find('input[name="y"]').val()) || 0
                 ]
             };
         },
@@ -76,29 +75,42 @@ var channels = {
         }
     },
 
-    new_pos : {
-        name : 'Nouvelle position',
-        valuesForm :'<label>x : </label>' +
-                    '<input type="text" name="x">' +
-                    '<br>' +
-                    '<label>y : </label>' +
-                    '<input type="text" name="y">' +
-                    '<br>' +
-                    '<label>Angle : </label>' +
-                    '<input type="text" name="theta">',
+    ultrasonic : {
+        name : 'Ultrasons',
+        valuesForm :'<input type="text" name="0">' +
+                    '<input type="text" name="1">' +
+                    '<input type="text" name="2">' +
+                    '<input type="text" name="3">' +
+                    '<input type="text" name="4">' +
+                    '<input type="text" name="5">' +
+                    '<input type="text" name="6">' +
+                    '<input type="text" name="7">' +
+                    '<input type="text" name="8">' +
+                    '<input type="text" name="9">' +
+                    '<input type="text" name="10">' +
+                    '<input type="text" name="11">',
         valuesToObject : function(valuesContainer) {
             return {
-                new_pos : [
-                    parseFloat(valuesContainer.find('input[name="x"]').val()) || 0,
-                    parseFloat(valuesContainer.find('input[name="y"]').val()) || 0,
-                    parseFloat(valuesContainer.find('input[name="theta"]').val()) || 0
+                ultrasonic: [
+                    parseInt(valuesContainer.find('input[name="0"]').val()) || 0,
+                    parseInt(valuesContainer.find('input[name="1"]').val()) || 0,
+                    parseInt(valuesContainer.find('input[name="2"]').val()) || 0,
+                    parseInt(valuesContainer.find('input[name="3"]').val()) || 0,
+                    parseInt(valuesContainer.find('input[name="4"]').val()) || 0,
+                    parseInt(valuesContainer.find('input[name="5"]').val()) || 0,
+                    parseInt(valuesContainer.find('input[name="6"]').val()) || 0,
+                    parseInt(valuesContainer.find('input[name="7"]').val()) || 0,
+                    parseInt(valuesContainer.find('input[name="8"]').val()) || 0,
+                    parseInt(valuesContainer.find('input[name="9"]').val()) || 0,
+                    parseInt(valuesContainer.find('input[name="10"]').val()) || 0,
+                    parseInt(valuesContainer.find('input[name="11"]').val()) || 0
                 ]
             };
         },
         showValues : function(valuesContainer, values) {
-            valuesContainer.find('input[name="x"]').val(values[0]);
-            valuesContainer.find('input[name="y"]').val(values[1]);
-            valuesContainer.find('input[name="theta"]').val(values[2]);
+            for (var i = 0; i < 12; i++) {
+                valuesContainer.find('input[name="'+i+'"]').val(values[i]);
+            }
         }
     },
 
@@ -115,9 +127,9 @@ var channels = {
         valuesToObject : function(valuesContainer) {
             return {
                 mesured_pos : [
-                    parseFloat(valuesContainer.find('input[name="x"]').val()) || 0,
-                    parseFloat(valuesContainer.find('input[name="y"]').val()) || 0,
-                    parseFloat(valuesContainer.find('input[name="theta"]').val()) || 0
+                    parseInt(valuesContainer.find('input[name="x"]').val()) || 0,
+                    parseInt(valuesContainer.find('input[name="y"]').val()) || 0,
+                    parseInt(valuesContainer.find('input[name="theta"]').val()) || 0
                 ]
             };
         },
@@ -128,45 +140,29 @@ var channels = {
         }
     },
 
-    start_timer : {
-        name : 'Début chronomètre',
-        valuesForm :'<label>Timestamp : </label>' +
-                    '<input type="text" name="timestamp">',
+    new_pos : {
+        name : 'Nouvelle position',
+        valuesForm :'<label>x : </label>' +
+                    '<input type="text" name="x">' +
+                    '<br>' +
+                    '<label>y : </label>' +
+                    '<input type="text" name="y">' +
+                    '<br>' +
+                    '<label>Angle : </label>' +
+                    '<input type="text" name="theta">',
         valuesToObject : function(valuesContainer) {
             return {
-                start_timer : parseInt(valuesContainer.find('input[name="timestamp"]').val()) || 0
+                new_pos : [
+                    parseInt(valuesContainer.find('input[name="x"]').val()) || 0,
+                    parseInt(valuesContainer.find('input[name="y"]').val()) || 0,
+                    parseInt(valuesContainer.find('input[name="theta"]').val()) || 0
+                ]
             };
         },
         showValues : function(valuesContainer, values) {
-            valuesContainer.find('input[name="timestamp"]').val(values);
-        }
-    },
-
-    spot_enable : {
-        name : 'Spot Enable',
-        valuesForm :'<label>Activé </label>' +
-                    '<input type="checkbox" name="spot">',
-        valuesToObject : function(valuesContainer) {
-            return {
-                spot_enable : valuesContainer.find('input[name="spot"]').is(':checked')
-            };
-        },
-        showValues : function(valuesContainer, values) {
-            valuesContainer.find('input[name="spot"]').attr('checked', values);
-        }
-    },
-
-    ultrasonic : {
-        name : 'Ultrasons',
-        valuesForm :'',
-        valuesToObject : function(valuesContainer) {
-            return {
-                ultrasonic: []
-            };
-        }
-        ,
-        showValues : function(valuesContainer, values) {
-
+            valuesContainer.find('input[name="x"]').val(values[0]);
+            valuesContainer.find('input[name="y"]').val(values[1]);
+            valuesContainer.find('input[name="theta"]').val(values[2]);
         }
     }
 };
